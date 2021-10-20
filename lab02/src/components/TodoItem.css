@@ -1,0 +1,14 @@
+.todoItem{
+    display:flex;
+    background-color: rgb(255, 245, 102);
+    align-items: center;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 12px;
+}
+.todoItem>p{
+    flex:1;
+}
+.editField{
+    display: flex;
+}
