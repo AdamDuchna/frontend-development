@@ -1,25 +1,23 @@
 import React from 'react'
-import './TodoInput.css'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { TODO_ADD } from '../features/counter/todoSlice'
-const TodoInput= () => {
+import { NOTE_ADD } from '../features/counter/todoSlice'
+import './NoteItem.css' 
+export default function NoteInput() {
     const [input,setInput] = useState('')
     const dispatch = useDispatch()
-
-    const addTodo = () => {
-        dispatch(TODO_ADD({
-            item: input,
-            done: false,
+    const addNote = () => {
+        dispatch(NOTE_ADD({
+            text: input,
             id: Date.now(),
-            editing: false
         }))
+        
+
     }
-    return(
+    return (
         <div className='input'>
             <input type="text" value={input} onChange={e=>setInput(e.target.value)}></input>
-            <button onClick={addTodo}>Add Todo</button>
+            <button onClick={addNote}>Add Note</button>
         </div>
     )
 }
-export default TodoInput;

@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { combineReducers } from 'redux';
 
 const initialState = {
-    todoList: []
+    todoList: [],
+    noteList: []
 }
 
 const todoSlice = createSlice({
@@ -35,11 +37,19 @@ const todoSlice = createSlice({
                     else{item.editing = true}
                 }
             })
-        }
-
+        },
+        NOTE_ADD: (state,action) =>{
+            state.noteList.push(action.payload)
+        },
+        NOTE_DELETE: (state,action) =>({
+            ...state,
+            noteList: state.noteList.filter(item => item.id !== action.payload)
+        })
     }
 });
 
-export const { TODO_ADD, TODO_FINISH ,TODO_DELETE, TODO_EDIT, TODO_SET_EDITING} = todoSlice.actions
+
+export const { TODO_ADD, TODO_FINISH ,TODO_DELETE, TODO_EDIT, TODO_SET_EDITING,NOTE_ADD,NOTE_DELETE} = todoSlice.actions
 export const selectTodoList = state => state.todos.todoList
+export const selectNoteList = state => state.todos.noteList
 export default todoSlice.reducer

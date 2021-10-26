@@ -1,0 +1,14 @@
+.noteItem{
+    display:flex;
+    background-color: rgb(255, 245, 102);
+    align-items: center;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 6px;
+    height:100px;
+    flex-wrap: wrap;
+    display: flex;
+}
+.noteItem>p{
+    flex:1;
+}
