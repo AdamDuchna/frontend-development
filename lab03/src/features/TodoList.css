@@ -1,0 +1,7 @@
+div{
+    padding: 6px;
+}
+
+.todo-true{
+    text-decoration: line-through;
+}

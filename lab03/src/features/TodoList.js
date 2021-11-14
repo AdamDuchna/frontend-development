@@ -1,9 +1,12 @@
 import { connect } from "react-redux";
-import { deleteTodoAction,editTodoAction } from "../actions/TodoActions";
-const TodoList = ({ todos, deleteTodoAction,editTodoAction } ,props) => {
+import { deleteTodoAction,editTodoAction,doneTodoAction } from "../actions/TodoActions";
+import './TodoList.css' 
+import {Link} from "react-router-dom";
+const TodoList = ({ todos, deleteTodoAction,editTodoAction,doneTodoAction } ,props) => {
+    console.log(todos)
     return (
         <div>
-            {todos.map(todo => (<div>{todo.text} <button onClick={() => deleteTodoAction(todo)}>Usuń</button></div>))}
+            {todos.map(todo => (<div className={`todo-${todo.done}`} key={todo.id}><Link to={`/${todo.id}`} style={{ textDecoration: 'none', color: "black" }}>{todo.text} </Link><button onClick={() => deleteTodoAction(todo)}>Usuń</button><button onClick={()=>{doneTodoAction(todo)}}>Done</button></div>))}
         </div>
     )
 };
@@ -16,7 +19,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     deleteTodoAction,
-    editTodoAction
+    editTodoAction,
+    doneTodoAction
 }
 
 

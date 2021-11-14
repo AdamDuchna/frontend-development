@@ -1,9 +1,9 @@
 import React from 'react'
 import {Field,Form,Formik} from "formik"
-import {v4 as uuidv4 } from 'uuid';
 import { addTodoAction } from '../actions/TodoActions';
 import { connect } from 'react-redux';
-import { useEffect } from "react";
+import './TodoForm.css'
+const crypto = require("crypto");
 const TodoForm = (props) => {
     const handleSubmit = (values) => {
         props.addTodoAction(values)
@@ -12,7 +12,7 @@ const TodoForm = (props) => {
         <div>
             <Formik
                 initialValues={{
-                    id: uuidv4(),
+                    id: crypto.randomBytes(4).toString('hex'),
                     text: '',
                     date: '',
                     done: 'false'
@@ -20,8 +20,7 @@ const TodoForm = (props) => {
                 onSubmit={(values) => handleSubmit(values)}
                 enableReinitialize={true}>
                     <Form>
-                        <Field name="text" />
-                        <Field name="date" />
+                        <Field name="text" placeholder="Dodaj todo" />
                         <button type="submit">
                             Zatwierdz
                         </button>
