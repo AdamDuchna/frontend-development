@@ -1,33 +1,20 @@
 import React from 'react';
+import NoteForm from './components/NoteForm';
+import NoteList from './components/NoteList';
+import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
 import './App.css';
-import TodoInput from './components/TodoInput.js';
-import TodoItem from './components/TodoItem.js';
-import {useSelector} from 'react-redux'
-import {selectTodoList,selectNoteList} from './features/counter/todoSlice.js'
-import NoteInput from './components/NoteInput';
-import NoteItem from './components/NoteItem';
 
 function App() {
-  const todoList = useSelector(selectTodoList)
-  const noteList = useSelector(selectNoteList)
   return(
-    <div className='app'>
-      <div className='app__todo'>
-      <TodoInput></TodoInput>
-      {todoList.map(item => (
-        <TodoItem
-        name={item.item}
-        done={item.done}
-        id={item.id}
-        editing={item.editing}
-        />
-      ))}    
+    <div className="app">
+      <div className="todos">
+        <TodoForm/>
+        <TodoList/>
       </div>
-      <div className='app__note'>
-        <NoteInput/>
-        {noteList.map(item =>(
-          <NoteItem text={item.text} id={item.id}/>
-        ))}
+      <div className="notes">
+        <NoteForm/>
+        <NoteList/>
       </div>
     </div>
   );

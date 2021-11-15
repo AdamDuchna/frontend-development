@@ -2,9 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import { TodoReducer } from './reducers/TodoReducer';
+import { NoteReducer } from './reducers/NoteReducer';
+import { combineReducers, createStore } from 'redux';
+const store = createStore(
+  combineReducers(
+    { 
+      todos: TodoReducer,
+      notes: NoteReducer
+    }
+  ))
 
 ReactDOM.render(
   <React.StrictMode>

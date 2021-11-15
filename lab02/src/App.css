@@ -1,14 +1,33 @@
 .app{
-  height: 100vh;
-  width: 100vw;
-  background-color: cornsilk;
-  display:flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-
-
+    display:flex;
+    justify-content: space-around;
 }
-.app__todo,.app__note{
-  margin:20px;
+
+body{
+    background-color: bisque;
+}
+
+input{
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 6px;
+    padding: 6px;
+}
+input:focus{
+    outline:none;
+}
+button{
+    margin-left: 4px;
+    border: none;
+    border-radius: 6px;
+    padding: 6px;
+    background: rgb(231, 215, 145);
+    color:rgb(253, 253, 253);
+}
+.todo-true{
+    text-decoration: line-through;
+    margin-top:12px;
+}
+.todo-false{
+    margin-top:12px;
 }
