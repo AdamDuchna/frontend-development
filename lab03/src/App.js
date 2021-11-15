@@ -8,14 +8,18 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import NoteForm from './features/NoteForm';
+import NoteList from './features/NoteList';
+import NoteDetail from './features/NoteDetail';
 
 function App() {
   return (<div>
     <Router>
-      <TodoForm/>
-      <TodoList/>
       <Routes>
-        <Route path=":id" component={TodoDetail}></Route>
+        <Route exact path="todos/" element={<><TodoForm/><TodoList/></>}></Route>
+        <Route exact path="notes/" element={<><NoteForm/><NoteList/></>}></Route>
+        <Route path="/notes/:id" element={<NoteDetail/>}></Route>
+        <Route path="/todos/:id" element={<TodoDetail/>}></Route>
       </Routes>
     </Router>
   </div>);

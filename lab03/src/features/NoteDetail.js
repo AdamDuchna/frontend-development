@@ -5,22 +5,18 @@ import { withRouter } from './withRouter';
 import { useEffect } from 'react';
 import {Link} from "react-router-dom";
 import './TodoDetail.css'
-const TodoDetail = ({todos},props) => {
+const NoteDetail = ({notes},props) => {
     const {id} = useParams()
-    const todo = todos.find(t=>t.id === id)
-    console.log(todo.done)
+    const note = notes.find(t=>t.id === id)
     return (<div className="detal">
-        <div>Id: {todo.id}</div>
-        <div>Content: {todo.text}</div>
-        <div>Date: {todo.date}</div>
-        <div>Finished: {todo.done.toString()}</div>
+        <div>Id: {note.id}</div>
+        <div>Content: {note.text}</div>
     </div>)
 }
 const mapStateToProps = (state,props) => {
-    console.log("Propsy",props)
     return {
-        todos: state.todos
+        notes: state.notes
     };
 }
 const mapDispatchToProps ={};
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(TodoDetail));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(NoteDetail));

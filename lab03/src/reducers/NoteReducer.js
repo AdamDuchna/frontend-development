@@ -1,16 +1,14 @@
-import { TODO_ADD,TODO_DELETE, TODO_EDIT,TODO_DONE,TODO_UPDATE } from "../actions/TodoActions";
+import { NOTE_ADD,NOTE_DELETE, NOTE_EDIT,NOTE_UPDATE } from "../actions/NoteActions";
 
-export const TodoReducer = (state = [], action) => {
+export const NoteReducer = (state = [], action) => {
     switch(action.type) {
-        case TODO_ADD: 
+        case NOTE_ADD: 
             return [...state, action.payload];
-        case TODO_DELETE:
+        case NOTE_DELETE:
             return [...state.filter(el => el.id !== action.payload.id)];
-        case TODO_EDIT:
+        case NOTE_EDIT:
             return state.map(t => {if(action.payload.id === t.id){return {...t,editing: !t.editing}} return t})
-        case TODO_DONE:
-            return state.map(t => {if(action.payload.id === t.id){return {...t,done: !t.done,date: Date()}} return t})
-        case TODO_UPDATE:
+        case NOTE_UPDATE:
             return state.map(t => {if (action.payload.id === t.id) { return {...t,text: action.payload.note}}})
         default:
             return state;

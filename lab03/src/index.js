@@ -5,14 +5,14 @@ import App from './App';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import {TodoReducer} from './reducers/TodoReducer';
-import { combineReducers, createStore } from 'redux';
-
-let store = createStore(
-  combineReducers(
-    { 
-      todos: TodoReducer
-    }
-  ));
+import {NoteReducer} from './reducers/NoteReducer';
+import { applyMiddleware,combineReducers, createStore } from 'redux';
+import thunk from 'redux-thunk';
+const store = createStore(
+  combineReducers({
+    todos: TodoReducer,
+    notes: NoteReducer
+  }), applyMiddleware(thunk))
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

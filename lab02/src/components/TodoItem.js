@@ -15,8 +15,7 @@ const TodoItem = ({name,done,id,editing}) => {
         dispatch(TODO_DELETE(id))
     }
     const handleEdit=()=>{
-        dispatch(TODO_SET_EDITING(id))
-        
+        dispatch(TODO_SET_EDITING(id))  
     }
     const submitEdit=()=>{
         dispatch(TODO_SET_EDITING(id))
