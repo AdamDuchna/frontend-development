@@ -4,10 +4,20 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import { MovieReducer } from './reducers/MovieReducer';
+import { combineReducers, createStore } from 'redux';
+import { DirectorReducer } from './reducers/DirectorReducer';
+const store = createStore(
+  combineReducers({
+    movies: MovieReducer,
+    directors: DirectorReducer
+  }))
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
       <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

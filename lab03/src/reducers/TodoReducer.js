@@ -11,7 +11,7 @@ export const TodoReducer = (state = [], action) => {
         case TODO_DONE:
             return state.map(t => {if(action.payload.id === t.id){return {...t,done: !t.done,date: Date()}} return t})
         case TODO_UPDATE:
-            return state.map(t => {if (action.payload.id === t.id) { return {...t,text: action.payload.note}}})
+            return state.map(t => {if (action.payload.id === t.id) { return {...t,text: action.payload.note}} return t})
         default:
             return state;
     }

@@ -1,21 +1,18 @@
 import { Formik,Field,Form } from 'formik'
 import React from 'react'
-import { addDirectorAction } from '../actions/DirectorActions';
+import { addDirectorAction,updateDirectorAction } from '../actions/DirectorActions';
 import { connect } from 'react-redux';
-const crypto = require("crypto");
-const DirectorForm = ({addDirectorAction}) => {
+import { useParams } from 'react-router';
+const DirectorEditForm = ({directors,updateDirectorAction}) => {
+    const {id} = useParams()
+    const director = directors.find(t=>t.id === id)
     const handleSubmit = (values) =>{
-        addDirectorAction(values)
+        updateDirectorAction(values)
     }
     return (
         <div>
             <Formik
-                initialValues={{
-                    id: crypto.randomBytes(4).toString('hex'),
-                    directorName: '',
-                    directorSurname: '',
-                    age: ''
-                }}
+                initialValues={director}
                 onSubmit={(values) => handleSubmit(values)}
                 enableReinitialize={true}>
                     <Form>
@@ -35,5 +32,5 @@ const mapStateToProps = (state) => {
         directors: state.directors
     };
 }
-const mapDispatchToProps ={addDirectorAction};
-export default connect(mapStateToProps,mapDispatchToProps)(DirectorForm);
+const mapDispatchToProps ={updateDirectorAction};
+export default connect(mapStateToProps,mapDispatchToProps)(DirectorEditForm);

@@ -1,23 +1,28 @@
 import React from 'react'
 import {Form,Formik,Field} from 'formik'
-import {uuidv4} from 'uuidv4'
+import { addMovieAction} from '../actions/MovieActions';
+import { connect } from 'react-redux';
+const crypto = require("crypto");
 
-export default function MovieForm() {
+
+const MovieForm = ({addMovieAction})=> {
     const handleSubmit = (values) => {
+        addMovieAction(values)
     }
     return (
         <div>
             <Formik
                 initialValues={{
-                    id: uuidv4(),
+                    id: crypto.randomBytes(4).toString('hex'),
                     title: '',
                     productionYear: '',
+                    directorid: ''
                 }}
                 onSubmit={(values) => handleSubmit(values)}
                 enableReinitialize={true}>
                     <Form>
-                        <Field name="title" />
-                        <Field name="productionYear" />
+                        <Field name="title" placeholder="Tytuł"/>
+                        <Field name="productionYear" placeholder="Rok" />
                         <button type="submit">
                             Zatwierdz
                         </button>
@@ -26,3 +31,10 @@ export default function MovieForm() {
         </div>
     )
 }
+const mapStateToProps = (state) => {
+    return {
+        movies: state.movies
+    };
+}
+const mapDispatchToProps ={addMovieAction};
+export default connect(mapStateToProps,mapDispatchToProps)(MovieForm);
