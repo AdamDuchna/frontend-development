@@ -7,10 +7,12 @@ import * as serviceWorker from './serviceWorker';
 import { MovieReducer } from './reducers/MovieReducer';
 import { combineReducers, createStore } from 'redux';
 import { DirectorReducer } from './reducers/DirectorReducer';
+import {ActorReducer} from './reducers/ActorReducer';
 const store = createStore(
   combineReducers({
     movies: MovieReducer,
-    directors: DirectorReducer
+    directors: DirectorReducer,
+    actors: ActorReducer
   }))
 
 ReactDOM.render(

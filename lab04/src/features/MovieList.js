@@ -4,7 +4,6 @@ import { useState } from "react";
 import { deleteMovieAction } from '../actions/MovieActions';
 
 const MovieList = ({ movies, deleteMovieAction},props) => {
-    console.log(movies)
     return (
         <div className="movies">
             {movies.map(movie => ( <div className="movie" key={movie.id}> 

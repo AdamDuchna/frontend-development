@@ -1,47 +1,11 @@
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-}
-
-.App-link {
-  color: rgb(112, 76, 182);
-}
-
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
 body{
-  background-color: rgb(251, 251, 201);
+  background-color: rgb(243, 228, 160);
 }
 .navbar{
-  background-color: rgb(248, 241, 135);
+  background-color: rgb(246, 227, 120);
   padding: 10px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -68,41 +32,35 @@ button{
   border: none;
   border-radius: 4px;
   padding: 4px;
-  background: rgb(235, 221, 161);
+  background: rgb(246, 227, 120);
   color:rgb(255, 254, 254);
 }
-.director div{
-  color:rgb(255, 255, 255);
-}
-.director{
+
+.director,.movie,.actor{
   margin-top: 12px;
-  background-color: rgb(255, 242, 128);
+  background-color: rgb(246, 227, 120);
   width: 20vw;
   margin-left: 40vw;
   border-radius: 4px;
   padding: 6px;
 }
-.movie div{
+.movie div,.director div{
   color:rgb(255, 255, 255);
 }
-.movie{
-  margin-top: 12px;
-  background-color: rgb(255, 242, 128);
-  width: 20vw;
-  margin-left: 40vw;
-  border-radius: 4px;
-  padding: 6px;
-}
-.movie-detail,.director-detail{
+.movie-detail,.director-detail,.actor-detail{
   margin-top: 20px;
-  background-color: rgb(248, 237, 136);
+  background-color: rgb(246, 227, 120);
   width: 20vw;
   margin-left: 40vw;
   border-radius: 4px;
   padding: 6px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-.movie-detail div,.director-detail div{
+.movie-detail div,.director-detail div,.actor-detail div{
   text-align: left;
   color:white
+}
+.lists{
+  margin-top: 40px;
+  color:white;
 }

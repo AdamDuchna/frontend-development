@@ -15,6 +15,9 @@ import Navbar from './features/Navbar';
 import Dashbord from './features/Dashbord';
 import DirectorDetail from './features/DirectorDetail';
 import DirectorEditForm from './features/DirectorEditForm';
+import ActorForm from './features/ActorForm';
+import ActorList from './features/ActorList';
+import ActorDetail from './features/ActorDetail';
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
           <Route path="movies/:id" element={<MovieDetail/>}></Route>
           <Route path="directors/:id" element={<DirectorDetail/>}></Route>
           <Route exact path="directors/" element={<DirectorList/>}></Route>
+          <Route path="actors/add" element={<ActorForm/>}></Route>
+          <Route exact path="actors/" element={<ActorList/>}></Route>
+          <Route path="actors/:id" element={<ActorDetail/>}></Route>
         </Routes>
       </Router>
     </div>
