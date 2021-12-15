@@ -1,20 +1,9 @@
+const defaultState={}
+defaultState["users"]={"byId": {},"allIds": []}
 
+defaultState["user"]={}
 
-const allEntities = [
-    "users","user"
-];
-
-const defaultState = allEntities.reduce(
-    (acc, entity) => ({
-        ...acc,
-        [entity]: {
-            byId: {},
-            allIds: []
-        }
-    }), {}
-);
-
-const entityReducer = (entity, state = { allIds: [], byId: {} }, action) => {
+const entityReducer = (entity, state = {}, action) => {
     console.log('Before', entity, state, action);
     const actionEntities = action.payload[entity];
     console.log('Entity', actionEntities);

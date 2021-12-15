@@ -7,10 +7,9 @@ import { useParams } from 'react-router';
 
 const UserList = ({ user, getUser } ,props) => {
     const {id} = useParams()
-    console.log(user)
     useEffect(() => {
         getUser(id);
-    }, []);
+    },[]);
     return (
         <div>
             {"username" in user ? <>
