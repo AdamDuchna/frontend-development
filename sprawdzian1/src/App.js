@@ -4,11 +4,19 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import CatForm from './ui/CatForm';
+import CatList from './ui/CatList';
+import CatDetail from './ui/CatDetail';
 
 function App() {
   return (
     <div className="App">
-      halo
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<><CatForm/><CatList/></>}></Route>
+          <Route path='/:id' element={<CatDetail/>}></Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
