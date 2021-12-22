@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import {Link} from "react-router-dom";
+import { delCatAction } from "../ducks/catpackages/actions";
 
-const CatList = ({cats},props) => {
+const CatList = ({cats,delCatAction},props) => {
     return (
         <div className='lista'>
             <div>List of gift recievers</div>
@@ -9,6 +10,7 @@ const CatList = ({cats},props) => {
             <Link to={`/${cat.id}`} style={{ textDecoration: 'none', color: "black" }}>
                 <div>{cat.name} {cat.surname}</div>
                 </Link>
+                <button onClick={() => delCatAction(cat)}>Usuń</button>
                 </div>))}
         </div>
     )
@@ -20,7 +22,7 @@ const mapStateToProps = (state) => {
     };
 }
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {delCatAction}
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(CatList);
