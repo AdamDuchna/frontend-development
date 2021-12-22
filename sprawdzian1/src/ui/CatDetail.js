@@ -15,9 +15,7 @@ const DirectorDetail = ({cats},props) => {
         <Link to="edit" style={{ textDecoration: 'none', color: "black" }}><button>Edit</button></Link>
     </div>)
 }
-const mapStateToProps = (state,ownProps) => {
-    console.log(state)
-    console.log(ownProps)
+const mapStateToProps = (state) => {
     return {
         cats: state.cats
     };

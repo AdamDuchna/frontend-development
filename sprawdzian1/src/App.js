@@ -7,6 +7,7 @@ import {
 import CatForm from './ui/CatForm';
 import CatList from './ui/CatList';
 import CatDetail from './ui/CatDetail';
+import './App.css'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<><CatForm/><CatList/></>}></Route>
           <Route path='/:id' element={<CatDetail/>}></Route>
+          <Route path='/:id/edit' element={<CatForm/>}></Route>
         </Routes>
       </Router>
     </div>

@@ -3,7 +3,8 @@ import {Link} from "react-router-dom";
 
 const CatList = ({cats},props) => {
     return (
-        <div >
+        <div className='lista'>
+            <div>List of gift recievers</div>
             {cats.map(cat => ( <div className="cat" key={cat.id}> 
             <Link to={`/${cat.id}`} style={{ textDecoration: 'none', color: "black" }}>
                 <div>{cat.name} {cat.surname}</div>
