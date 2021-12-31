@@ -1,0 +1,22 @@
+img {
+  height: 600px;
+  width: 650px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.breed-details {
+  border: 2px black solid;
+  justify-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: white;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+/*# sourceMappingURL=CatBreedDetail.css.map */

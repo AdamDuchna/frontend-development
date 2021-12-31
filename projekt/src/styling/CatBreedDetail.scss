@@ -1,0 +1,13 @@
+img{
+    height: 600px;
+    width: 650px;
+    object-fit: cover;
+}
+.breed-details{
+    border:2px black solid;
+    justify-items: center;
+    display:flex;
+    flex-direction: column;
+    color:white;
+    flex-wrap: wrap;
+}

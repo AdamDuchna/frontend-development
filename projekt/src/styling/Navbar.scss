@@ -1,0 +1,17 @@
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    font-size: 24px;
+    background-color: #020814;
+    border-bottom: #fca311 solid 4px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    .logo{
+        display:flex;
+        justify-self: flex-start;
+
+    }
+    div{
+        color:white;
+    }
+}
