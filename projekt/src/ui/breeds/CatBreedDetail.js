@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { getAllCatBreeds } from "../../ducks/breeds/selectors";
 import { withRouter } from "react-router-dom";
 import { getCatBreedList,delCatBreed } from "../../ducks/breeds/operations";
-import '../../styling/CatBreedDetail.css'
+import '../../styling/breeds/CatBreedDetail.css'
 import {Link} from "react-router-dom";
 import { useEffect } from "react";
 const CatBreedDetail = ({breed,getCatBreedList,delCatBreed} ,props) => {
@@ -21,8 +21,11 @@ const CatBreedDetail = ({breed,getCatBreedList,delCatBreed} ,props) => {
             <div>Origin: {breed.origin}</div>
             <div>Temperament: {breed.temperament}</div>
             <div>{breed.description}</div>
+            <div className="breed-buttons">
             <Link to={`/breeds`} style={{ textDecoration: 'none', color: "black" }}><div onClick={()=>{handleClick(breed.id)}}>DELETE</div></Link>
-            </> : <>Loading</> }
+            <Link to={`/breeds/edit/${breed.id}`} style={{ textDecoration: 'none', color: "black" }}>EDIT</Link>
+            </div>
+            </> : <div className="loading">Loading</div> }
             
         </div>
         </div>

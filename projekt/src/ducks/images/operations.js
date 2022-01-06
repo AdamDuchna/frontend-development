@@ -4,9 +4,9 @@ import types from "./types";
 
 const imageSchema = new schema.Entity('images');
 const imagesSchema = new schema.Array(imageSchema);
-export const getCatImageList = (page,order) => {
+export const getCatImageList = (page,order,filetypes,category,searched) => {
     return createAction({
-        endpoint: `https://api.thecatapi.com/v1/images/search?limit=100&page=${page}&order=${order}`,
+        endpoint: `https://api.thecatapi.com/v1/images/search?limit=19&page=${page}&order=${order}&mime_types=${filetypes.toString()}&category_ids=${category}&breed_ids=${searched}`,
         method: 'GET',
         headers: {
          'Content-Type': 'application/json',
@@ -19,7 +19,8 @@ export const getCatImageList = (page,order) => {
                  payload: async (action, state, res) => {
                      const json = await res.json();
                      const pages = res.headers.get("Pagination-Count")
-                     const { entities } = normalize(json, imagesSchema)
+                     const pagified = {...json,'20':{'id':'records','count':pages}}
+                     const { entities } = normalize(pagified, imagesSchema)
                      return entities;
                  },
                  meta: { actionType: 'GET_ALL' }
@@ -34,3 +35,4 @@ export const getCatImageList = (page,order) => {
     payload: {'images':payload},
     meta: {actionType: 'DEL_ONE'}
 });
+

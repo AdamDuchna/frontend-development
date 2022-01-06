@@ -1,13 +1,15 @@
 const allEntities = [
     "breeds",
-    "images"
+    "images",
+    "categories",
 ];
 const defaultState = allEntities.reduce(
     (acc, entity) => ({
         ...acc,
         [entity]: {
             byId: {},
-            allIds: []
+            allIds: [],
+            pages: 0
         }
     }), {}
 );
@@ -34,6 +36,14 @@ const entityReducer = (entity, state = { allIds: [], byId: {} }, action) => {
             }
         case "DEL_ONE":      
             return {byId:Object.fromEntries(Object.entries(state.byId).filter(([k,v]) => k!==actionEntities)),allIds:state.allIds.slice(0).filter(id => id !== actionEntities)}
+        case "UPDATE_ONE": 
+            return {
+                ...state,
+                byId:{
+                    ...state.byId,
+                    'actionEntities':{actionEntities}
+                }
+            }
         default:
             return state;
     }

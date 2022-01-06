@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,GAAG,CAAA;EACC,MAAM,EAAE,KAAK;EACb,KAAK,EAAE,KAAK;EACZ,UAAU,EAAE,KAAK;CACpB;;AACD,AAAA,cAAc,CAAA;EACV,KAAK,EAAE,KAAK;EACZ,OAAO,EAAC,IAAI;EACZ,cAAc,EAAE,MAAM;EACtB,KAAK,EAAC,KAAK;CACd;;AACD,AAAA,aAAa,CAAA;EACT,eAAe,EAAE,MAAM;EACvB,OAAO,EAAE,IAAI;CAChB",
-    "sources": [
-        "CatBreedDetail.scss"
-    ],
-    "names": [],
-    "file": "CatBreedDetail.css"
-}

@@ -23,6 +23,8 @@
   background-color: white;
   color: #e5e5e5;
   font-size: 250px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 24px;
 }
 
 .breeds-list .breed {
@@ -56,7 +58,7 @@
 
 .breeds-filters input, .breeds-filters select {
   height: 30px;
-  width: 400px;
+  width: 30vw;
   margin: 4px;
   border-radius: 10px;
   border: none;

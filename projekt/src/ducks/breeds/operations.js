@@ -34,5 +34,10 @@ export const delCatBreed = (payload) => ({
     payload: {'breeds':payload},
     meta: {actionType: 'DEL_ONE'}
 });
+export const updateCatBreed = (payload) =>({
+    type: types.BREED_UPDATE,
+    payload: {'breeds':payload},
+    meta: {actionType: 'UPDATE_ONE'}
+})
 
 

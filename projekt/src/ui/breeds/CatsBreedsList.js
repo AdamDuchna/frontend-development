@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getCatBreedList } from "../../ducks/breeds/operations";
 import { getAllCatBreeds} from "../../ducks/breeds/selectors";
 import {Link} from "react-router-dom";
-import '../../styling/CatsBreedsList.css';
+import '../../styling/breeds/CatsBreedsList.css';
 
 const CatsBreedsList = ({ breeds, getCatBreedList } ,props) => {
     const [sortedBreeds, setSortedBreeds] = useState(breeds)
@@ -111,11 +111,16 @@ const CatsBreedsList = ({ breeds, getCatBreedList } ,props) => {
             </div>
             {
                 <div className="breeds-list">
-                    <Link to='/breeds/add' style={{ textDecoration: 'none', color: "black" }}><div key="new-breed" className="breed"><div className="no-image">+</div><div className="cat-breed">Add a new breed</div></div></Link>
+                    <Link to='/breeds/add' style={{ textDecoration: 'none', color: "black" }}>
+                    <div key="new-breed" className="breed"><div className="no-image">+</div>
+                    <div className="cat-breed">Add a new breed</div></div></Link>
                     {breedsByTrait && breedsByTrait.map(breed => {
                     return (
                     <div key={breed.id} className="breed">
-                        <Link to={`/breeds/${breed.id}`} style={{ textDecoration: 'none', color: "black" }}>{ 'image' in breed ? <><img src={breed.image.url} alt="" ></img><div className="cat-breed">{breed.name}</div></>:<><div className="no-image">?</div><div className="cat-breed">{breed.name}</div></>}</Link>
+                        <Link to={`/breeds/${breed.id}`} style={{ textDecoration: 'none', color: "black" }}>
+                        { 'image' in breed ? <><img src={breed.image.url} alt="" ></img>
+                        <div className="cat-breed">{breed.name}</div></>:<><div className="no-image">?</div>
+                        <div className="cat-breed">{breed.name}</div></>}</Link>
                     </div>)
                     })}
                 </div>
