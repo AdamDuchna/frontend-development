@@ -33,6 +33,7 @@
   border-bottom-left-radius: 20px;
   border-top-right-radius: 24px;
   background-color: #fca311;
+  margin-right: 20px;
 }
 
 .breeds-list .breed .cat-breed {
@@ -56,20 +57,17 @@
 .breeds-filters input, .breeds-filters select {
   height: 30px;
   width: 400px;
+  margin: 4px;
   border-radius: 10px;
   border: none;
-  padding-left: 20px;
+  padding-left: 10px;
 }
 
-.breeds-filters select {
-  margin-left: 10px;
-}
-
-.breeds-filters .breeds-box {
+.breeds-filters .breeds-filters-box {
   width: 100%;
 }
 
-.breeds-filters .breeds-box .breeds-fieldname {
+.breeds-filters .breeds-filters-box .breeds-fieldname {
   color: #ffffff;
   padding-bottom: 10px;
   padding-left: 20px;

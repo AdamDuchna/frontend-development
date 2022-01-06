@@ -6,8 +6,7 @@ img {
 }
 
 .breed-details {
-  border: 2px black solid;
-  justify-items: center;
+  width: 650px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -16,7 +15,14 @@ img {
       -ms-flex-direction: column;
           flex-direction: column;
   color: white;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+}
+
+.breed-window {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 /*# sourceMappingURL=CatBreedDetail.css.map */

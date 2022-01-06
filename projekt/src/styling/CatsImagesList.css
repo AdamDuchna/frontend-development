@@ -1,0 +1,31 @@
+.images-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding-top: 20px;
+}
+
+.images-list .image {
+  margin-bottom: 20px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  text-align: center;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 24px;
+  margin-right: 20px;
+}
+
+img {
+  height: 400px;
+  width: 450px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 24px;
+}
+/*# sourceMappingURL=CatsImagesList.css.map */

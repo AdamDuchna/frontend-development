@@ -24,6 +24,7 @@
         border-bottom-left-radius: 20px;
         border-top-right-radius: 24px;
         background-color: #fca311;
+        margin-right: 20px;
 
     
         .cat-breed{
@@ -43,14 +44,12 @@
     input,select{
         height: 30px;
         width: 400px;
+        margin:4px;
         border-radius:10px;
         border: none;
-        padding-left: 20px;
+        padding-left: 10px;
     }
-    select{
-        margin-left: 10px;
-    }
-    .breeds-box{
+    .breeds-filters-box{
         width: 100%;
         .breeds-fieldname{
             color:#ffffff;

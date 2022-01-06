@@ -1,5 +1,6 @@
 const allEntities = [
-    "cats"
+    "breeds",
+    "images"
 ];
 const defaultState = allEntities.reduce(
     (acc, entity) => ({
@@ -12,9 +13,7 @@ const defaultState = allEntities.reduce(
 );
 
 const entityReducer = (entity, state = { allIds: [], byId: {} }, action) => {
-    console.log('Before', entity, state, action);
     const actionEntities = action.payload[entity];
-    console.log('Entity', actionEntities);
     const { actionType } = action.meta;
 
     switch(actionType) {
@@ -33,6 +32,8 @@ const entityReducer = (entity, state = { allIds: [], byId: {} }, action) => {
                 },
                 allIds: Object.keys(actionEntities)
             }
+        case "DEL_ONE":      
+            return {byId:Object.fromEntries(Object.entries(state.byId).filter(([k,v]) => k!==actionEntities)),allIds:state.allIds.slice(0).filter(id => id !== actionEntities)}
         default:
             return state;
     }
@@ -41,8 +42,6 @@ const entityReducer = (entity, state = { allIds: [], byId: {} }, action) => {
 
 export const entities = (state = defaultState, action) => {
     if(!action.meta || !action.meta.actionType) return state;
-
-    console.log(action);
     return {
         ...state,
         ...Object.keys(action.payload).reduce(

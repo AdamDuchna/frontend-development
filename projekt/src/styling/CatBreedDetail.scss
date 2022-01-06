@@ -4,10 +4,12 @@ img{
     object-fit: cover;
 }
 .breed-details{
-    border:2px black solid;
-    justify-items: center;
+    width: 650px;
     display:flex;
     flex-direction: column;
     color:white;
-    flex-wrap: wrap;
+}
+.breed-window{
+    justify-content: center;
+    display: flex;
 }

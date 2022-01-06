@@ -1,0 +1,19 @@
+const IMAGES= 'IMAGES';
+
+const IMAGES_REQUEST= 'IMAGES_REQUEST';
+const IMAGES_SUCCESS= 'IMAGES_SUCCESS';
+const IMAGES_FAILURE= 'IMAGES_FAILURE';
+const IMAGE_DELETE= 'IMAGE_DELETE'
+
+
+const types = {
+    IMAGES,
+    IMAGES_REQUEST,
+    IMAGES_SUCCESS,
+    IMAGES_FAILURE,
+    IMAGE_DELETE
+
+
+};
+
+export default types;
