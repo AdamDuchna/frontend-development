@@ -22,8 +22,8 @@ const CatBreedDetail = ({breed,getCatBreedList,delCatBreed} ,props) => {
             <div>Temperament: {breed.temperament}</div>
             <div>{breed.description}</div>
             <div className="breed-buttons">
-            <Link to={`/breeds`} style={{ textDecoration: 'none', color: "black" }}><div onClick={()=>{handleClick(breed.id)}}>DELETE</div></Link>
-            <Link to={`/breeds/edit/${breed.id}`} style={{ textDecoration: 'none', color: "black" }}>EDIT</Link>
+            <Link to={`/breeds`} style={{ textDecoration: 'none', color: "white" }}><div onClick={()=>{handleClick(breed.id)}}>DELETE</div></Link>
+            <Link to={`/breeds/edit/${breed.id}`} style={{ textDecoration: 'none', color: "white" }}>EDIT</Link>
             </div>
             </> : <div className="loading">Loading</div> }
             

@@ -39,6 +39,7 @@ img {
 }
 
 .images-filters {
+  color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -54,14 +55,20 @@ img {
 
 .images-filters input, .images-filters select {
   height: 30px;
-  width: 22vw;
+  width: 30vw;
   margin: 4px;
   border-radius: 10px;
   border: none;
   padding-left: 10px;
 }
 
+.images-filters .images-fieldname {
+  padding-bottom: 10px;
+  padding-left: 20px;
+}
+
 .images-filters .images-checkboxes {
+  color: black;
   background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;

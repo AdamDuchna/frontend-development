@@ -64,21 +64,19 @@ const CatsBreedsList = ({ breeds, getCatBreedList } ,props) => {
         else{setBreedsByTrait(breedsBySearch.slice(0).filter(breed=>breed[trait]===1))}
     },[checked,trait,searched,sorting,sortedBreeds,breedsByOrigin,breedsBySearch])
 
-    const HandleChangeSearch = (text)=>{setSearched(text)}
     const HandleCheckFilter = (orig)=>{
         if(checked.includes(orig)){setChecked(checked.filter(e=>e!==orig))}
         else{setChecked([...checked,orig])}
     }
-    const HandleSelectSort = (selected)=>{setSorting(selected)}
-    const HandleSelectTraits = (t)=>{setTrait(t)}
+
 
     const origins = [ ...new Set(breeds.map(breed=>{ return breed.origin}))]
     return (
         <div>
             <div className="breeds-filters">
                 <div className="breeds-filters-box">
-                    <input  placeholder="Search for breed..." onChange={e=>HandleChangeSearch(e.target.value)}></input>
-                    <select defaultValue="Select a trait" name="traits" id="traits" onChange={e=>HandleSelectTraits(e.target.value)}>
+                    <input  placeholder="Search for breed..." onChange={e=>setSearched(e.target.value)}></input>
+                    <select defaultValue="Select a trait" name="traits" id="traits" onChange={e=>setTrait(e.target.value)}>
                         <option value="" >None</option>
                         <option value="hairless">Hairless</option>
                         <option value="grooming">Requires grooming</option>
@@ -87,7 +85,7 @@ const CatsBreedsList = ({ breeds, getCatBreedList } ,props) => {
                         <option value="short_legs">Short legged</option>
                         <option value="suppressed_tail">Suppresed tail</option>
                     </select>
-                    <select name="sort" id="sort" onChange={e=>HandleSelectSort(e.target.value)}>
+                    <select name="sort" id="sort" onChange={e=>setSorting(e.target.value)}>
                         <option value="alphabet_ascending">Alphabetical order</option>
                         <option value="alphabet_descending">Reversed alphabetical order</option>
                         <option value="affenction_ascending">Affection ascending</option>

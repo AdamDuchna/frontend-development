@@ -1,0 +1,28 @@
+form{
+    padding-top: 20px;
+    display:flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    select{
+        background-color: rgb(255, 255, 255);
+        width: 40vw;
+        border: none;
+        border-radius: 6px;
+        padding: 6px;
+        margin:6px;
+    }
+    input:focus{
+        outline:none;
+    }
+}
+
+button{
+    width: 20vw;
+    margin-left: 4px;
+    border: none;
+    border-radius: 6px;
+    padding: 6px;
+    color:rgb(255, 254, 254);
+    background-color: #fca311;
+}

@@ -34,10 +34,19 @@ export const delCatBreed = (payload) => ({
     payload: {'breeds':payload},
     meta: {actionType: 'DEL_ONE'}
 });
-export const updateCatBreed = (payload) =>({
-    type: types.BREED_UPDATE,
-    payload: {'breeds':payload},
+
+export const addCatBreed = (payload) => {
+    const {entities} = normalize(payload, breedSchema)
+    return {type: types.BREED_ADD,
+    payload: entities,
+    meta: {actionType: 'ADD_ONE'}}
+    };
+
+export const updateCatBreed = (payload) => {
+    const {entities} = normalize(payload, breedSchema)
+    return{type: types.BREED_UPDATE,
+    payload: entities,
     meta: {actionType: 'UPDATE_ONE'}
-})
+}};
 
 

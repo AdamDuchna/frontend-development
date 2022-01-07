@@ -7,6 +7,8 @@ const IMAGES_FAILURE= 'IMAGES_FAILURE';
 const IMAGES_PAGES= 'IMAGES_PAGES';
 
 const IMAGE_DELETE= 'IMAGE_DELETE';
+const IMAGE_ADD= 'IMAGE_ADD';
+const IMAGE_UPDATE= 'IMAGE_UPDATES';
 
 
 const types = {
@@ -15,7 +17,9 @@ const types = {
     IMAGES_SUCCESS,
     IMAGES_FAILURE,
     IMAGE_DELETE,
-    IMAGES_PAGES
+    IMAGES_PAGES,
+    IMAGE_ADD,
+    IMAGE_UPDATE
 
 
 };

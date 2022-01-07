@@ -19,12 +19,12 @@ const CatBreedDetail = ({image,getCatImageList,delCatImage } ,props) => {
             { image ? <>
             {'url' in image ? <img className="image" alt="?"src={image.url}></img> : <div className="no-image">No image</div>}
             <div className="image-info">
-            <div>Breed:{image.breeds.length !== 0 ? image.breeds[0].name : ' unassigned'}</div>
-            <div>Category:{image.breeds.length !== 0 ? image.categories[0].name : ' unassigned'}</div>
+            <div>Breed:{image.breeds.length !== 0 ? <Link to={`/breeds/${image.breeds[0].id}`} style={{ textDecoration: 'none', color: "white" }}>{ image.breeds[0].name}</Link> : ' unassigned'}</div>
+            <div>Category:{'categories' in image && image.categories !== undefined && image.categories.length !== 0 ? image.categories[0].name : ' unassigned'}</div>
             </div>
             <div className="image-buttons">
-            <Link to={`/images`} style={{ textDecoration: 'none', color: "black" }}><div onClick={()=>{handleClick(image.id)}}>DELETE</div></Link>
-            <Link to={`/images/edit/${image.id}`} style={{ textDecoration: 'none', color: "black" }}>EDIT</Link>
+            <Link to={`/images`} style={{ textDecoration: 'none', color: "white" }}><div onClick={()=>{handleClick(image.id)}}>DELETE</div></Link>
+            <Link to={`/images/edit/${image.id}`} style={{ textDecoration: 'none', color: "white" }}>EDIT</Link>
             </div>
             </> : <div className="loading">Loading</div> }
             

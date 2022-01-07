@@ -7,7 +7,6 @@ form {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  height: 100vh;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -27,14 +26,27 @@ form input:focus {
 }
 
 form .breed-form-fields {
-  width: 60vw;
+  width: 40vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
+@media (max-width: 1000px) {
+  form .breed-form-fields {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 80vw;
+  }
+}
+
 form .breed-form-checkbox, form .breed-form-range {
-  width: 40%;
+  width: 60%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -53,9 +65,27 @@ form .breed-form-checkbox input, form .breed-form-range input {
   width: auto;
 }
 
+@media (max-width: 1300px) {
+  form .breed-form-checkbox input, form .breed-form-range input {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+}
+
 form label {
-  width: 60vw;
+  width: 40vw;
   color: white;
+}
+
+@media (max-width: 1000px) {
+  form label {
+    width: 80vw;
+  }
 }
 
 form .breed-form-checkbox input {
@@ -68,5 +98,6 @@ button {
   border-radius: 6px;
   padding: 6px;
   color: #fffefe;
+  background-color: #fca311;
 }
 /*# sourceMappingURL=CatBreedForm.css.map */

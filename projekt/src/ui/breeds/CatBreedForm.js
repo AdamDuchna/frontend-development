@@ -4,23 +4,28 @@ import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
 import { getAllCatBreeds} from "../../ducks/breeds/selectors";
 import { withRouter } from "react-router-dom";
-import { getCatBreedList } from '../../ducks/breeds/operations';
+import { getCatBreedList,updateCatBreed,addCatBreed } from '../../ducks/breeds/operations';
 import { useEffect } from "react";
-import '../../styling/breeds/CatBreedForm.css'
+import '../../styling/breeds/CatBreedForm.css';
+import {useHistory} from "react-router-dom";
 
-const CatBreedForm = ({breed,getCatBreedList}) => {
+const CatBreedForm = ({breed,getCatBreedList,updateCatBreed,addCatBreed}) => {
+    const history = useHistory()
     useEffect(() => {
         if(!breed){getCatBreedList()}
     })
-    const handleSubmit=(val)=>{
-        console.log(val)
+    const handleSubmit=(value)=>{
+        history.push('/breeds')
+        const weight = {'weight_imperial':value.weight_imperial,'weight_metric':value.weight_metric}
+        delete value['weight_imperial'];
+        delete value['weight_metric'];
+        breed ? updateCatBreed({...value,weight}) : addCatBreed({...value,weight})
 
     }
     return (
-        <div className='breed-form'>
             <Formik
                 initialValues={{
-                    id: breed ? breed.id : uuidv4().slice(0,4),
+                    id: breed ? breed.id : uuidv4(),
 
                     alt_names: breed ? breed.alt_names : "",
                     cfa_url: breed ? breed.cfa_url : "",
@@ -32,7 +37,7 @@ const CatBreedForm = ({breed,getCatBreedList}) => {
                     name: breed ? breed.name : "",
                     origin: breed ? breed.origin : "",
                     reference_image_id: breed ? breed.reference_image_id : "",
-                    image_id: breed ? breed.image.width : "",
+                    image: breed ? breed.image : "",
 
                     adaptability: breed ? breed.adaptability : 1,
                     affection_level: breed ? breed.affection_level :1,
@@ -58,12 +63,12 @@ const CatBreedForm = ({breed,getCatBreedList}) => {
                     suppressed_tail: breed ? breed.suppressed_tail : 0,
                     hypoallergenic: breed ? breed.hypoallergenic : 0,
 
-                    weight_imperial: breed ? breed.weight.imperial : "",
-                    weight_metric: breed ? breed.weight.metric : "",
-
                     wikipedia_url: breed ? breed.wikipedia_url : "",
                     vcahospitals_url: breed ? breed.vcahospitals_url : "",
-                    vetstreet_url: breed ? breed.vetstreet_url : ""
+                    vetstreet_url: breed ? breed.vetstreet_url : "",
+
+                    weight_imperial: breed ? breed.weight.imperial : "",
+                    weight_metric: breed ? breed.weight.metric : ""
                 }}
                 onSubmit={(values) => handleSubmit(values)}
                 enableReinitialize={true}>
@@ -117,7 +122,6 @@ const CatBreedForm = ({breed,getCatBreedList}) => {
 
                     </Form>
                 </Formik>
-        </div>
     )
 }
 const mapStateToProps = (state,ownProps) => {
@@ -126,6 +130,8 @@ const mapStateToProps = (state,ownProps) => {
     };
 }
 const mapDispatchToProps ={
-    getCatBreedList
+    getCatBreedList,
+    updateCatBreed,
+    addCatBreed
 };
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(CatBreedForm));

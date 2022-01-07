@@ -1,29 +1,68 @@
 import { Formik,Field,Form } from 'formik'
 import React from 'react'
+import { useEffect} from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
-import { getAllCatImages} from "../../ducks/images/selectors";
 import { withRouter } from "react-router-dom";
 import '../../styling/breeds/CatBreedDetail.css'
-import { getCatImageList } from '../../ducks/images/operations';
+import { addCatImage } from '../../ducks/images/operations';
+import { updateCatImage } from '../../ducks/images/operations';
+import {useHistory} from "react-router-dom";
+import { getCatImageList } from "../../ducks/images/operations";
+import { getAllCatImages} from "../../ducks/images/selectors";
+import { getImageCategoriesList } from "../../ducks/imagesCategories/operations";
+import { getAllImagesCategories} from "../../ducks/imagesCategories/selectors";
+import { getAllCatBreeds } from "../../ducks/breeds/selectors";
+import { getCatBreedList } from "../../ducks/breeds/operations";
+import '../../styling/images/CatImageForm.css'
 
-const CatImageForm = ({image,getCatImageList}) => {
+const CatImageForm = ({image,breeds,categories,getImageCategoriesList,getCatImageList,getCatBreedList,addCatImage,updateCatImage}) => {
+    const history = useHistory()
+    const handleSubmit = (values) =>{
+        history.push('/images')
+        const breed = breeds.slice(0).filter(breed=>breed.id == values.breeds)
+        const category = categories.slice(0).filter(category=>category.id == values.categories)
+        console.log(breed,category)
+        image ? updateCatImage({...values,'breeds':breed,'categories': category}) : addCatImage({...values,'breeds':breed,'categories': category})
+    }
+
+    useEffect(() => {
+        if(categories.length === 0){getImageCategoriesList()}
+        if(breeds.length === 0){getCatBreedList()}
+        if(!image){getCatImageList()}  
+    }, [])
+
     return (
         <div>
         <Formik
             initialValues={{
                 id: image ? image.id : uuidv4().slice(0,4),
-                breeds: image ? image.breeds : [],
-                categories: image ? image.categories : [],
+                breeds: image ? image.breeds.id : 0,
+                categories: 0,
                 url: image ? image.url : ''
             }}
-        
+            onSubmit={(values) => handleSubmit(values)}
             enableReinitialize={true}>
                 <Form>
                     <Field name="url" placeholder="Image url" />
-                    <Field name="breeds" placeholder="Cat breed on image" />
-                    <Field name="categories" placeholder="Image category" />
-
+                    <Field as="select" name="categories">
+                        <option value="">No category selected</option>
+                        {   categories && categories.map(category=>{
+                            return (
+                                <option key={category.id} value={category.id}>{category.name}</option>
+                            )
+                        })
+                            }
+                    </Field>
+                    <Field as="select" name="breeds">
+                        <option value="">No breed selected</option>
+                        {   breeds && breeds.map(breed=>{
+                            return (
+                                <option key={breed.id} value={breed.id}>{breed.name}</option>
+                            )
+                        })
+                            }
+                    </Field>
                     <button type="submit">
                         Zatwierdz
                     </button>
@@ -34,8 +73,17 @@ const CatImageForm = ({image,getCatImageList}) => {
 }
 const mapStateToProps = (state,ownProps) => {
     return {
-        image: getAllCatImages(state).find(image => image.id === ownProps.match.params.id)
+        image: getAllCatImages(state).find(image => image.id === ownProps.match.params.id),
+        categories: getAllImagesCategories(state),
+        breeds: getAllCatBreeds(state)
     };
 }
-const mapDispatchToProps ={getCatImageList};
+const mapDispatchToProps ={
+    getCatImageList,
+    addCatImage,
+    updateCatImage,
+    getImageCategoriesList,
+    getCatBreedList
+
+};
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(CatImageForm));

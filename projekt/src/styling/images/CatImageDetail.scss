@@ -2,7 +2,7 @@
     justify-content: center;
     display: flex;
     .image-details{
-        border-bottom-left-radius: 20px;
+        border-radius: 20px;
         margin-top: 20px;
         width: 60vw;
         display:flex;
@@ -23,7 +23,6 @@
             background-color: none;
             text-align: center;
             border: none;
-            border: 12px black solid;
         }
         div{
             margin-left: 20px;
