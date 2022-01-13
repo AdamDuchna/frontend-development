@@ -35,4 +35,12 @@
 .navbar div {
   color: white;
 }
+
+.navbar div:hover {
+  font-weight: bolder;
+}
+
+.navbar .logo:hover {
+  font-weight: lighter;
+}
 /*# sourceMappingURL=Navbar.css.map */

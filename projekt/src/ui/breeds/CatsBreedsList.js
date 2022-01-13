@@ -8,12 +8,10 @@ import '../../styling/breeds/CatsBreedsList.css';
 
 const CatsBreedsList = ({ breeds, getCatBreedList } ,props) => {
     const [sortedBreeds, setSortedBreeds] = useState(breeds)
-    const [breedsBySearch, setBreedsBySearch] = useState(breeds)
-    const [breedsByTrait, setBreedsByTrait] = useState(breeds)
-    const [breedsByOrigin, setbreedsByOrigin] = useState(breeds)
+    const [displayedImages, setDisplayedImages] = useState(breeds)
+
 
     const [checked, setChecked] = useState([])
-    const [sorting, setSorting] = useState('')
     const [searched, setSearched] = useState('')
     const [trait, setTrait] = useState('')
     useEffect(() => {
@@ -22,47 +20,42 @@ const CatsBreedsList = ({ breeds, getCatBreedList } ,props) => {
 
     useEffect(()=>{setSortedBreeds(breeds)},[breeds])
 
-    useEffect(()=>{
-        if( sorting === 'alphabet_ascending'){
-            setSortedBreeds(sortedBreeds.slice(0).sort((a, b) => a.name !== b.name ? a.name < b.name ? -1 : 1 : 0))
-        }
-        if( sorting === 'alphabet_descending'){
-            setSortedBreeds(sortedBreeds.slice(0).sort((a, b) => a.name !== b.name ? a.name > b.name ? -1 : 1 : 0))
-        }
-        if( sorting === 'affenction_ascending'){
-            setSortedBreeds(sortedBreeds.slice(0).sort((a, b) => a.affection_level !== b.affection_level ? a.affection_level < b.affection_level ? -1 : 1 : 0))
-        }
-        if( sorting === 'affenction_descending'){
-            setSortedBreeds(sortedBreeds.slice(0).sort((a, b) => a.affection_level !== b.affection_level ? a.affection_level > b.affection_level ? -1 : 1 : 0))
-        }
-        if( sorting === 'child_friendly_ascending'){
-            setSortedBreeds(sortedBreeds.slice(0).sort((a, b) => a.child_friendly !== b.child_friendly ? a.child_friendly < b.child_friendly ? -1 : 1 : 0))
-        }
-        if( sorting === 'child_friendly_descending'){
-            setSortedBreeds(sortedBreeds.slice(0).sort((a, b) => a.child_friendly !== b.child_friendly ? a.child_friendly > b.child_friendly ? -1 : 1 : 0))
-        }
-        if( sorting === 'dog_friendly_ascending'){
-            setSortedBreeds(sortedBreeds.slice(0).sort((a, b) => a.child_friendly !== b.child_friendly ? a.child_friendly < b.child_friendly ? -1 : 1 : 0))
-        }
-        if( sorting === 'dog_friendly_descending'){
-            setSortedBreeds(sortedBreeds.slice(0).sort((a, b) => a.dog_friendly !== b.dog_friendly ? a.dog_friendly > b.dog_friendly ? -1 : 1 : 0))
-        }
-    },[sorting,checked,searched,trait,sortedBreeds])
+    const sortBreeds = (sort) => {
+        const fieldTypeList = sort.split("-")
+        switch (fieldTypeList[1]){
+            default:
+            case "dsc":
+                setSortedBreeds(sortedBreeds.slice(0).sort((a, b) => a[fieldTypeList[0]] !== b[fieldTypeList[0]] ? a[fieldTypeList[0]] > b[fieldTypeList[0]] ? -1 : 1 : 0))
+                break;
+            case "asc":
+                setSortedBreeds(sortedBreeds.slice(0).sort((a, b) => a[fieldTypeList[0]] !== b[fieldTypeList[0]] ? a[fieldTypeList[0]] < b[fieldTypeList[0]] ? -1 : 1 : 0))
+                break;
+            }
+    }
+    useEffect(() => {
+        FilterBreeds(checked,trait,searched)
+    }, [checked,trait,searched,sortedBreeds])
 
-    useEffect(()=>{
-        if(checked.length === 0){ setbreedsByOrigin(sortedBreeds)}
-        else{setbreedsByOrigin(sortedBreeds.slice(0).filter(breed=>checked.includes(breed.origin)))}
-    },[checked,searched,sorting,trait,sortedBreeds])
+    const FilterBreeds=(checked,trait,searched)=>{
+        const toFilter = sortedBreeds
+        const filteredByTrait = FilterByTrait(trait,toFilter)
+        const filteredBySearch = FilterBySearch(searched,filteredByTrait)
+        const filteredByChecked = FilterByChecked(checked,filteredBySearch)
+        setDisplayedImages(filteredByChecked)
+    }
 
-    useEffect(()=>{
-        if(searched.length === 0){setBreedsBySearch(breedsByOrigin)}
-        else{setBreedsBySearch(breedsByOrigin.slice(0).filter(breed=> breed.name.toLowerCase().search(searched.toLowerCase())!==-1))}
-    },[checked,searched,sorting,sortedBreeds,breedsByOrigin])
-
-    useEffect(()=>{
-        if(trait.length === 0){setBreedsByTrait(breedsBySearch)}
-        else{setBreedsByTrait(breedsBySearch.slice(0).filter(breed=>breed[trait]===1))}
-    },[checked,trait,searched,sorting,sortedBreeds,breedsByOrigin,breedsBySearch])
+    const FilterByChecked=(checked,breeds)=>{
+        if(checked.length !== 0){return breeds.slice(0).filter(breed=>checked.includes(breed.origin))}
+        return breeds
+    }
+    const FilterBySearch=(searched,breeds)=>{
+        if(searched.length !== 0){return breeds.slice(0).filter(breed=> breed.name.toLowerCase().search(searched.toLowerCase())!==-1) }
+        return breeds
+    }
+    const FilterByTrait=(trait,breeds)=>{
+        if(trait.length !== 0){return breeds.slice(0).filter(breed=>breed[trait]===1)}
+        return breeds
+    }
 
     const HandleCheckFilter = (orig)=>{
         if(checked.includes(orig)){setChecked(checked.filter(e=>e!==orig))}
@@ -85,15 +78,15 @@ const CatsBreedsList = ({ breeds, getCatBreedList } ,props) => {
                         <option value="short_legs">Short legged</option>
                         <option value="suppressed_tail">Suppresed tail</option>
                     </select>
-                    <select name="sort" id="sort" onChange={e=>setSorting(e.target.value)}>
-                        <option value="alphabet_ascending">Alphabetical order</option>
-                        <option value="alphabet_descending">Reversed alphabetical order</option>
-                        <option value="affenction_ascending">Affection ascending</option>
-                        <option value="affenction_descending">Affection descending</option>
-                        <option value="child_friendly_ascending">Child friendliness ascending</option>
-                        <option value="child_friendly_descending">Child friendliness descending</option>
-                        <option value="dog_friendly_ascending">Dog friendliness ascending</option>
-                        <option value="dog_friendly_descending">Dog friendliness descending</option>
+                    <select name="sort" id="sort" onChange={e=>sortBreeds(e.target.value)}>
+                        <option value="name-asc">Alphabetical order</option>
+                        <option value="name-dsc">Reversed alphabetical order</option>
+                        <option value="affection_level-asc">Affection ascending</option>
+                        <option value="affection_level-dsc">Affection descending</option>
+                        <option value="child_friendly-asc">Child friendliness ascending</option>
+                        <option value="child_friendly-dsc">Child friendliness descending</option>
+                        <option value="dog_friendly-asc">Dog friendliness ascending</option>
+                        <option value="dog_friendly-dsc">Dog friendliness descending</option>
                     </select >
                 <div className="breeds-fieldname">Origin:</div>
                 <div className="breeds-checkboxes">
@@ -112,7 +105,7 @@ const CatsBreedsList = ({ breeds, getCatBreedList } ,props) => {
                     <Link to='/breeds/add' style={{ textDecoration: 'none', color: "black" }}>
                     <div key="new-breed" className="breed"><div className="no-image">+</div>
                     <div className="cat-breed">Add a new breed</div></div></Link>
-                    {breedsByTrait && breedsByTrait.map(breed => {
+                    {displayedImages && displayedImages.map(breed => {
                     return (
                     <div key={breed.id} className="breed">
                         <Link to={`/breeds/${breed.id}`} style={{ textDecoration: 'none', color: "black" }}>

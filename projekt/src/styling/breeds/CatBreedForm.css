@@ -12,6 +12,10 @@ form {
           align-items: center;
 }
 
+form div {
+  color: white;
+}
+
 form input {
   background-color: white;
   width: 40vw;
@@ -75,6 +79,23 @@ form .breed-form-checkbox input, form .breed-form-range input {
         -ms-flex-direction: row;
             flex-direction: row;
   }
+}
+
+form .breed-form-binary {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+form .breed-form-binary input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 30px;
 }
 
 form label {

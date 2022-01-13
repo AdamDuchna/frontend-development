@@ -35,7 +35,8 @@
   border-bottom-left-radius: 20px;
   border-top-right-radius: 24px;
   background-color: #fca311;
-  margin-right: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .breeds-list .breed .cat-breed {

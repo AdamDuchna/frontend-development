@@ -11,52 +11,73 @@ import {Link} from "react-router-dom";
 import '../../styling/images/CatsImagesList.css';
 
 const CatsImagesList = ({ breeds,images,categories, getCatImageList,getImageCategoriesList,getCatBreedList } ,props) => {
-    const [sortedImages, setSortedImages] = useState(images)
-    const [ImagesBySearch, setImagesBySearch] = useState(images)
-    const [ImagesByFiletypes, setImagesByFiletypes] = useState(images)
-    const [ImagesByCategory, setImagesByCategory] = useState(images)
-    
-    const [sorting, setSorting] = useState('asc')
+    const [displayedImages, setDisplayedImages] = useState(images)
     const [filetypes, setFiletypes] = useState([])
     const [category, setCategory] = useState("")
     const [searched,setSearched] = useState("")
+    const [sortedImages,setSortedImages] = useState(images)
 
-    useEffect(() => {
-        if( sorting === 'asc'){
-            setSortedImages(sortedImages.slice(0).sort((a, b) => a.id !== b.id ? a.id < b.id ? -1 : 1 : 0))
-        }
-        if( sorting === 'dsc'){
-            setSortedImages(sortedImages.slice(0).sort((a, b) => a.id !== b.id ? a.id > b.id ? -1 : 1 : 0))
-        }
-    }, [sorting,filetypes,category,searched.images])
+    const sortBreeds = (sort) => {
+        const fieldTypeList = sort.split("-")
+        switch (fieldTypeList[1]){
+            default:
+            case "dsc":
+                setSortedImages(displayedImages.slice(0).sort((a, b) => a[fieldTypeList[0]] !== b[fieldTypeList[0]] ? a[fieldTypeList[0]] > b[fieldTypeList[0]] ? -1 : 1 : 0))
+                break;
+            case "asc":
+                setSortedImages(displayedImages.slice(0).sort((a, b) => a[fieldTypeList[0]] !== b[fieldTypeList[0]] ? a[fieldTypeList[0]] < b[fieldTypeList[0]] ? -1 : 1 : 0))
+                break;
+            case "none":
+                setSortedImages(images)
+                break;
+            }
+    }
+    
+    const FilterByFiletype =(filetypes,images)=>{
+        if(filetypes.length !== 0){return images.slice(0).filter(image=> filetypes.some(type=> image.url.includes(type)))}
+        return images
+    }
 
-    useEffect(() => {
-        if(filetypes.length === 0){ setImagesByFiletypes(sortedImages)}
-        else{setImagesByFiletypes(sortedImages.slice(0).filter(image=> filetypes.some(type=> image.url.includes(type))))}
-    }, [sorting,filetypes,category,searched,sortedImages])
+    const FilterBySearch=(searched,images)=>{
+        if(searched.length !== 0 ){ 
+            const filteredBreeds = breeds.slice(0).find(breed=> breed.name.toLowerCase().search(searched.toLowerCase())!==-1)
+            if(filteredBreeds){
+                    const withBreeds = images.filter(img=> img.breeds.length !==0)
+                    return withBreeds.filter(img=>img.breeds[0].id === filteredBreeds.id)
+                }
+                return []
+            }
+        return images
+    }
 
-    useEffect(() => {
-        const filtered = breeds.slice(0).find(breed=> breed.name.toLowerCase().search(searched.toLowerCase())!==-1)
-        const withBreeds = ImagesByFiletypes.slice(0).filter(img=> img.breeds.length !==0)
-        if(searched.length === 0 || filtered === undefined){ setImagesBySearch(ImagesByFiletypes)}
-        else{setImagesBySearch(withBreeds.slice(0).filter(img=>img.breeds[0].id === filtered.id))}
-    }, [sorting,filetypes,category,searched,sortedImages,ImagesByFiletypes])
+    const FilterByCategory=(category,images)=>{
+        if(category !== ""){
+            const withCategories = images.filter(img=> 'categories' in img && img.categories.length !== 0 )
+            return withCategories.filter(img=>img.categories[0].id === parseInt(category))}
+        return images
+    }
 
-    useEffect(() => {
-        const withCategories = ImagesBySearch.slice(0).filter(img=> 'categories' in img && img.categories.length !== 0 )
-        if(category === ""){ setImagesByCategory(ImagesBySearch)}
-        else{setImagesByCategory(withCategories.slice(0).filter(img=>img.categories[0].id === category.id))}
-    }, [sorting,filetypes,category,searched,sortedImages,ImagesByFiletypes,ImagesBySearch])
+    const FilterImages=(filetypes,category,searched)=>{
+        const toFilter = sortedImages
+        const filteredByFiletype = FilterByFiletype(filetypes,toFilter)
+        const filteredBySearch = FilterBySearch(searched,filteredByFiletype)
+        const filteredByCategory = FilterByCategory(category,filteredBySearch)
+        setDisplayedImages(filteredByCategory)
+    }
 
     useEffect(()=>{
         if(categories.length === 0){getImageCategoriesList()}
         if(breeds.length === 0){getCatBreedList()}
         if(images.length === 0){getCatImageList()}  
-    },[])
+    },[breeds,categories,images,getImageCategoriesList,getCatImageList,getCatBreedList])
 
-
-    useEffect(()=>{setSortedImages(images.slice(0).sort((a, b) => a.id !== b.id ? a.id < b.id ? -1 : 1 : 0))},[images])
+    useEffect(() => {
+        setSortedImages(images)
+    }, [images])
     
+    useEffect(() => {
+        FilterImages(filetypes,category,searched)
+    }, [filetypes,category,searched,sortedImages])
 
     const HandleCheckFilter=(filetype)=>{
         if(filetypes.includes(filetype)){setFiletypes(filetypes.filter(e=>e!==filetype))}
@@ -74,10 +95,10 @@ const CatsImagesList = ({ breeds,images,categories, getCatImageList,getImageCate
                 return (<option key={category.id} value={category.id}>{category.name}</option>)
                 })}
             </select>
-            <select name="sort" id="sort" onChange={e=>setSorting(e.target.value)}>
-
-                <option value="asc">Alphabetical order</option>
-                <option value="dsc">Reversed alphabetical order</option>
+            <select name="sort" id="sort" onChange={e=>{sortBreeds(e.target.value)}}>
+                <option value="none-none">Not sorting</option>
+                <option value="id-asc">Alphabetical order</option>
+                <option value="id-dsc">Reversed alphabetical order</option>
             </select >
                 <div>
                 <div className="images-fieldname">File formats:</div>
@@ -96,7 +117,7 @@ const CatsImagesList = ({ breeds,images,categories, getCatImageList,getImageCate
                     <Link to='/images/add' style={{ textDecoration: 'none', color: "black" }}>
                     <div key="new-image" className="image"><div className="no-image">+</div>
                     </div></Link>
-                    {ImagesByCategory && ImagesByCategory.map(image => {
+                    {displayedImages && displayedImages.map(image => {
                     return (
                     <div key={image.id} className="image">
                         <Link to={`/images/${image.id}`} style={{ textDecoration: 'none', color: "black" }}>

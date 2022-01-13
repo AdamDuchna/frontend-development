@@ -10,7 +10,7 @@ import CatsImagesList from './ui/images/CatsImagesList';
 import CatBreedForm from './ui/breeds/CatBreedForm';
 import CatImageDetail from './ui/images/CatImageDetail';
 import CatImageForm from './ui/images/CatImageForm';
-import Navbar from './ui/navbar/Navbar'
+import Navbar from './ui/navbar/Navbar';
 
 function App() {
   return (

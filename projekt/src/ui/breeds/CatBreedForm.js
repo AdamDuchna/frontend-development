@@ -8,6 +8,24 @@ import { getCatBreedList,updateCatBreed,addCatBreed } from '../../ducks/breeds/o
 import { useEffect } from "react";
 import '../../styling/breeds/CatBreedForm.css';
 import {useHistory} from "react-router-dom";
+import * as Yup from 'yup';
+
+
+const BreedSchema = Yup.object().shape({
+    wikipedia_url: Yup.string().url().required('Please enter an url'),
+    vcahospitals_url: Yup.string().url().required('Please enter an url'),
+    vetstreet_url: Yup.string().required('Please enter an url'),
+    name: Yup.string().required('Please enter a name'),
+    alt_names: Yup.string(),
+    country_code: Yup.string().required('Please enter a country code').max(2, "Must be 2 letters long"),
+    description: Yup.string().required('Please enter a description').max(400, "No longer than 400 letters"),
+    temperament: Yup.string().required('Please enter a description of temperament').max(60, "No longer than 60 letters"),
+    origin: Yup.string().required('Please enter a country of origin').max(20, "No longer than 20 letters"),
+    life_span: Yup.string().matches(/[0-9]*[-][0-9]*/,'Must written as a range a-b').required('Please enter age range'),
+    weight_imperial: Yup.string().matches(/[0-9]*[-][0-9]*/,'Must written as a range a-b').required('Please enter weigth range in imperial'),
+    weight_metric: Yup.string().matches(/[0-9]*[-][0-9]*/,'Must written as a range a-b').required('Please enter weigth range in metric'),
+})
+
 
 const CatBreedForm = ({breed,getCatBreedList,updateCatBreed,addCatBreed}) => {
     const history = useHistory()
@@ -24,8 +42,9 @@ const CatBreedForm = ({breed,getCatBreedList,updateCatBreed,addCatBreed}) => {
     }
     return (
             <Formik
+                validationSchema={BreedSchema}
                 initialValues={{
-                    id: breed ? breed.id : uuidv4(),
+                    id: breed ? breed.id : uuidv4().slice(0,4),
 
                     alt_names: breed ? breed.alt_names : "",
                     cfa_url: breed ? breed.cfa_url : "",
@@ -72,17 +91,29 @@ const CatBreedForm = ({breed,getCatBreedList,updateCatBreed,addCatBreed}) => {
                 }}
                 onSubmit={(values) => handleSubmit(values)}
                 enableReinitialize={true}>
+                {({ errors, touched }) => (
                     <Form>
+                        {errors.name && touched.name ? (<div>{errors.name}</div>) : null}
                         <label>Name: <Field name="name" placeholder="name" /></label>
+                        {errors.origin && touched.origin ? (<div>{errors.origin}</div>) : null}
                         <label>Origin: <Field name="origin" placeholder="origin" /></label>
+                        {errors.country_code && touched.country_code ? (<div>{errors.country_code}</div>) : null}
                         <label>Country code:<Field name="country_code" placeholder="country_code" /></label>
+                        {errors.temperament && touched.temperament ? (<div>{errors.temperament}</div>) : null}
                         <label>Temperament: <Field name="temperament" placeholder="temperament" /></label>
+                        {errors.description && touched.description ? (<div>{errors.description}</div>) : null}
                         <label>Description: <Field name="description" placeholder="description" /></label>
+                        {errors.life_span && touched.life_span? (<div>{errors.life_span}</div>) : null}
                         <label>Lifespan: <Field name="life_span" placeholder="life_span" /></label>
+                        {errors.weight_imperial && touched.weight_imperial ? (<div>{errors.weight_imperial}</div>) : null}
                         <label>Weigth imperial: <Field name="weight_imperial" placeholder="weight_imperial" /></label>
+                        {errors.weight_metric && touched.weight_metric ? (<div>{errors.weight_metric}</div>) : null}
                         <label>Weigth metric:<Field name="weight_metric" placeholder="weight_metric" /></label>
+                        {errors.wikipedia_url && touched.wikipedia_url ? (<div>{errors.wikipedia_url}</div>) : null}
                         <label>Wikipedia url:<Field name="wikipedia_url" placeholder="wikipedia_url" /></label>
+                        {errors.vcahospitals_url && touched.vcahospitals_url ? (<div>{errors.vcahospitals_url}</div>) : null}
                         <label>Vcahospitals url:<Field name="vcahospitals_url" placeholder="vcahospitals_url" /></label>
+                        {errors.vetstreet_url && touched.vetstreet_url ? (<div>{errors.vetstreet_url}</div>) : null}
                         <label>Vetstreet url:<Field name="vetstreet_url" placeholder="vetstreet_url" /></label>
                         
 
@@ -101,18 +132,18 @@ const CatBreedForm = ({breed,getCatBreedList,updateCatBreed,addCatBreed}) => {
 
                             </div>
 
-                            <div className='breed-form-checkbox'>
-                            <label>Requires grooming<Field type="checkbox" name="grooming" /></label>
-                            <label>Experimental<Field type="checkbox" name="experimental" /></label>
-                            <label>Hairless<Field type="checkbox" name="hairless" /></label>
-                            <label>Hypoallergenic<Field type="checkbox" name="hypoallergenic" /></label>
-                            <label>Kept indoors<Field type="checkbox" name="indoor" /></label>
-                            <label>Lap cat<Field type="checkbox" name="lap" /></label>
-                            <label>Natural breed<Field type="checkbox" name="natural" /></label>
-                            <label>Rare<Field type="checkbox" name="rare" /></label>
-                            <label>Short legged<Field type="checkbox" name="short_legs" /></label>
-                            <label>Supressed tail<Field type="checkbox" name="suppressed_tail" /></label>
-                            <label>Rex<Field type="checkbox" name="rex" /></label>
+                            <div className='breed-form-binary'>
+                            <label>Requires grooming<Field type="range" name="grooming" min="0" max="1"/></label>
+                            <label>Experimental<Field type="range" name="experimental" min="0" max="1"/></label>
+                            <label>Hairless<Field type="range" name="hairless" min="0" max="1"/></label>
+                            <label>Hypoallergenic<Field type="range" name="hypoallergenic" min="0" max="1"/></label>
+                            <label>Kept indoors<Field type="range" name="indoor" min="0" max="1"/></label>
+                            <label>Lap cat<Field type="range" name="lap" min="0" max="1"/></label>
+                            <label>Natural breed<Field type="range" name="natural" min="0" max="1"/></label>
+                            <label>Rare<Field type="range" name="rare" min="0" max="1"/></label>
+                            <label>Short legged<Field type="range" name="short_legs" min="0" max="1"/></label>
+                            <label>Supressed tail<Field type="range" name="suppressed_tail" min="0" max="1"/></label>
+                            <label>Rex<Field type="range" name="rex" min="0" max="1"/></label>
                             </div>
                         </div>
 
@@ -121,6 +152,7 @@ const CatBreedForm = ({breed,getCatBreedList,updateCatBreed,addCatBreed}) => {
                         </button>
 
                     </Form>
+                )}
                 </Formik>
     )
 }
