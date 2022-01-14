@@ -26,6 +26,7 @@ function App() {
               <Route path='/images/edit/:id'><CatImageForm/></Route>
               <Route path='/images/:id'><CatImageDetail/></Route>
               <Route path='/images'><CatsImagesList/></Route>
+              <Route path='/'><div>There is no stats for now</div></Route>
             </Routes>
         </Router>
     </div>

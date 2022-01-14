@@ -18,12 +18,7 @@ import '../../styling/images/CatImageForm.css'
 import * as Yup from 'yup';
  
 const ImageSchema = Yup.object().shape({
-    url: Yup.string()
-    .matches(
-        /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-        'Enter correct url!'
-    )
-    .required('Please enter an image url'),
+    url: Yup.string().url().required('Please enter an image url'),
 });
 
 const CatImageForm = ({image,breeds,categories,getImageCategoriesList,getCatImageList,getCatBreedList,addCatImage,updateCatImage}) => {
